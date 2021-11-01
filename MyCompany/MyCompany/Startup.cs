@@ -34,7 +34,7 @@ namespace MyCompany
             services.AddTransient<DataManager>();
 
             //подключаем контекст БД
-            services.AddDbContext<AppDbContext>(x => x.UseSqlServer(Config.ConnectionString));
+            services.AddDbContext<AppDbContext>(x => x.UseSqlite(Config.ConnectionString));
 
             //настраиваем identity систему
             services.AddIdentity<IdentityUser, IdentityRole>(opts =>
@@ -72,7 +72,7 @@ namespace MyCompany
             app.UseStaticFiles();
             app.UseRouting();
 
-            //подключаем аунтификацию и авторизацию
+            //подключаем аунтификацию и авторизацию . по документации подключается после UseRouting но , до маршрутов
             app.UseCookiePolicy();
             app.UseAuthentication();
             app.UseAuthorization();
